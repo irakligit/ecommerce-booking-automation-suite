@@ -3,8 +3,6 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class BasePage:
-    """Common Selenium helpers shared by every page object."""
-
     DEFAULT_TIMEOUT = 10
 
     def __init__(self, driver):

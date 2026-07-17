@@ -1,37 +1,28 @@
-# Swag Labs Checkout Automation
+# saucedemo-checkout-automation
 
-A small, clean UI end-to-end test automation framework for the
-[Swag Labs](https://www.saucedemo.com/) sandbox, built with **Selenium
-WebDriver**, **pytest-bdd** (Gherkin/BDD) and the **Page Object Model**
-(POM) pattern.
+Selenium + pytest-bdd checkout test for [saucedemo.com](https://www.saucedemo.com/), using the Page Object Model.
 
-## Flow under test
+## What it does
 
-`features/checkout.feature` describes the following user journey:
+Logs in as `standard_user`, sorts the products by price low to high, adds
+the cheapest one to the cart, goes through checkout with some dummy shipping
+info, and checks that the order actually completes.
 
-1. Log in with `standard_user` / `secret_sauce`.
-2. Sort products by price, low to high.
-3. Add the cheapest item to the cart.
-4. Proceed to checkout, fill in mock shipping details, and finish the order.
-5. Assert that the `Thank you for your order!` completion message is shown.
+Scenario lives in `features/checkout.feature`.
 
-## Project layout
+## Layout
 
 ```
-.
-├── features/
-│   └── checkout.feature      # Gherkin scenario
-├── pages/                    # Page Object Model
-│   ├── base_page.py
-│   ├── login_page.py
-│   ├── inventory_page.py
-│   ├── cart_page.py
-│   └── checkout_page.py
-├── step_defs/
-│   └── test_checkout.py      # pytest-bdd step definitions
-├── conftest.py                # WebDriver fixture
-├── pytest.ini
-└── requirements.txt
+features/checkout.feature
+pages/
+  base_page.py
+  login_page.py
+  inventory_page.py
+  cart_page.py
+  checkout_page.py
+step_defs/test_checkout.py
+conftest.py
+pytest.ini
 ```
 
 ## Setup
@@ -42,16 +33,15 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Chrome must be installed; `webdriver-manager` downloads the matching
-ChromeDriver automatically.
+Needs Chrome installed. webdriver-manager grabs the matching chromedriver on its own.
 
-## Run
+## Running it
 
 ```bash
 pytest -v
 ```
 
-Run headless (e.g. in CI):
+Headless:
 
 ```bash
 HEADLESS=1 pytest -v

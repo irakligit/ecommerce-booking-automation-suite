@@ -4,8 +4,6 @@ from pages.base_page import BasePage
 
 
 class CheckoutInfoPage(BasePage):
-    """Step one: shipping details form (checkout-step-one.html)."""
-
     FIRST_NAME_INPUT = (By.ID, "first-name")
     LAST_NAME_INPUT = (By.ID, "last-name")
     POSTAL_CODE_INPUT = (By.ID, "postal-code")
@@ -22,8 +20,6 @@ class CheckoutInfoPage(BasePage):
 
 
 class CheckoutOverviewPage(BasePage):
-    """Step two: order summary (checkout-step-two.html)."""
-
     FINISH_BUTTON = (By.ID, "finish")
 
     def finish(self):
@@ -31,8 +27,6 @@ class CheckoutOverviewPage(BasePage):
 
 
 class CheckoutCompletePage(BasePage):
-    """Final step: order confirmation (checkout-complete.html)."""
-
     COMPLETE_HEADER = (By.CLASS_NAME, "complete-header")
 
     def get_confirmation_message(self):

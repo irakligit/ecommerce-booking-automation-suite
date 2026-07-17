@@ -26,7 +26,6 @@ class InventoryPage(BasePage):
         return self
 
     def get_cheapest_item_name(self):
-        """Assumes the list is already sorted low to high; the first card is the cheapest."""
         first_item = self.find_all(self.INVENTORY_ITEMS)[0]
         return first_item.find_element(*self.ITEM_NAME).text
 
