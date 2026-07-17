@@ -27,7 +27,11 @@ class CheckoutOverviewPage(BasePage):
 
 
 class CheckoutCompletePage(BasePage):
+    PAGE_TITLE = (By.CLASS_NAME, "title")
     COMPLETE_HEADER = (By.CLASS_NAME, "complete-header")
+
+    def get_page_title(self):
+        return self.get_text(self.PAGE_TITLE)
 
     def get_confirmation_message(self):
         return self.get_text(self.COMPLETE_HEADER)

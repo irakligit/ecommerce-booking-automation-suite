@@ -52,6 +52,11 @@ def finish_order(driver):
     CheckoutOverviewPage(driver).finish()
 
 
+@then(parsers.parse('the page title should show "{expected_title}"'))
+def assert_page_title(driver, expected_title):
+    assert CheckoutCompletePage(driver).get_page_title() == expected_title
+
+
 @then(parsers.parse('the order confirmation should say "{expected_message}"'))
 def assert_order_confirmation(driver, expected_message):
     complete_page = CheckoutCompletePage(driver)

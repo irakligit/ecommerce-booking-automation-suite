@@ -11,9 +11,7 @@ class InventoryPage(BasePage):
     SORT_DROPDOWN = (By.CLASS_NAME, "product_sort_container")
     INVENTORY_ITEMS = (By.CLASS_NAME, "inventory_item")
     ITEM_NAME = (By.CLASS_NAME, "inventory_item_name")
-    ITEM_PRICE = (By.CLASS_NAME, "inventory_item_price")
     ITEM_ADD_TO_CART_BUTTON = (By.CSS_SELECTOR, "button.btn_inventory")
-    CART_BADGE = (By.CLASS_NAME, "shopping_cart_badge")
     CART_LINK = (By.CLASS_NAME, "shopping_cart_link")
 
     SORT_LOW_TO_HIGH = "lohi"

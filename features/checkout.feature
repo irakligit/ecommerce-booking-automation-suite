@@ -10,4 +10,5 @@ Feature: Swag Labs checkout
     And I proceed to checkout
     And I enter my shipping details as "John" "Doe" "10001"
     And I finish the order
-    Then the order confirmation should say "Thank you for your order!"
+    Then the page title should show "Checkout: Complete!"
+    And the order confirmation should say "Thank you for your order!"
