@@ -33,10 +33,11 @@ def add_cheapest_item_to_cart(driver):
 
 
 @when("I proceed to checkout")
-def proceed_to_checkout(driver):
+def proceed_to_checkout(driver, cheapest_item_name):
     InventoryPage(driver).go_to_cart()
     cart_page = CartPage(driver)
     assert cart_page.is_loaded()
+    assert cheapest_item_name in cart_page.get_item_names()
     cart_page.checkout()
 
 
