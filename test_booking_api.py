@@ -40,3 +40,25 @@ def test_create_booking_returns_valid_schema(created_booking):
     assert booking["depositpaid"] == BOOKING_PAYLOAD["depositpaid"]
     assert booking["bookingdates"] == BOOKING_PAYLOAD["bookingdates"]
     assert booking["additionalneeds"] == BOOKING_PAYLOAD["additionalneeds"]
+
+
+def test_update_booking(booking_client, auth_token, created_booking):
+    booking_id, _ = created_booking
+    updated_payload = {**BOOKING_PAYLOAD, "totalprice": 300}
+
+    response = booking_client.update_booking(booking_id, updated_payload, auth_token)
+    assert response.status_code == 200
+    assert response.json()["totalprice"] == 300
+
+    fetched = booking_client.get_booking(booking_id)
+    assert fetched.json()["totalprice"] == 300
+
+
+def test_delete_booking(booking_client, auth_token, created_booking):
+    booking_id, _ = created_booking
+
+    response = booking_client.delete_booking(booking_id, auth_token)
+    assert response.status_code in (200, 201)
+
+    fetched = booking_client.get_booking(booking_id)
+    assert fetched.status_code == 404
