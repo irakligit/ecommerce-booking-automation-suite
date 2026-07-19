@@ -1,14 +1,18 @@
 # saucedemo-checkout-automation
 
-Selenium + pytest-bdd checkout test for [saucedemo.com](https://www.saucedemo.com/), using the Page Object Model.
+Two test suites: a Selenium + pytest-bdd checkout flow for [saucedemo.com](https://www.saucedemo.com/) (Page Object Model), and a pytest + requests suite against the [Restful-Booker](https://restful-booker.herokuapp.com) API.
 
 ## What it does
 
-Logs in as `standard_user`, sorts the products by price low to high, adds
+**UI:** Logs in as `standard_user`, sorts the products by price low to high, adds
 the cheapest one to the cart, goes through checkout with some dummy shipping
 info, and checks that the order actually completes.
 
 Scenario lives in `features/checkout.feature`.
+
+**API:** Authenticates against `/auth` to get a token, creates a booking and
+checks the response shape and values, then updates and deletes that same
+booking, confirming each change with a follow-up `GET`.
 
 ## Layout
 
@@ -21,6 +25,9 @@ pages/
   cart_page.py
   checkout_page.py
 step_defs/test_checkout.py
+api/
+  booking_client.py
+test_booking_api.py
 conftest.py
 pytest.ini
 ```
@@ -33,16 +40,30 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Needs Chrome installed. webdriver-manager grabs the matching chromedriver on its own.
+Needs Chrome installed for the UI suite. webdriver-manager grabs the matching chromedriver on its own. The API suite just needs network access to restful-booker.herokuapp.com.
 
 ## Running it
+
+Everything:
 
 ```bash
 pytest -v
 ```
 
+Just the UI suite:
+
+```bash
+pytest step_defs -v
+```
+
 Headless:
 
 ```bash
-HEADLESS=1 pytest -v
+HEADLESS=1 pytest step_defs -v
+```
+
+Just the API suite:
+
+```bash
+pytest test_booking_api.py -v
 ```
