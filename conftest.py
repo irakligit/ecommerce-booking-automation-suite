@@ -6,6 +6,11 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
+from api.booking_client import BookingClient
+
+API_USERNAME = "admin"
+API_PASSWORD = "password123"
+
 
 @pytest.fixture
 def driver():
@@ -18,3 +23,15 @@ def driver():
     chrome_driver = webdriver.Chrome(service=service, options=options)
     yield chrome_driver
     chrome_driver.quit()
+
+
+@pytest.fixture(scope="session")
+def booking_client():
+    return BookingClient()
+
+
+@pytest.fixture(scope="session")
+def auth_token(booking_client):
+    response = booking_client.create_token(API_USERNAME, API_PASSWORD)
+    assert response.status_code == 200
+    return response.json()["token"]
