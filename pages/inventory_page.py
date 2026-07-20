@@ -5,8 +5,6 @@ from pages.base_page import BasePage
 
 
 class InventoryPage(BasePage):
-    URL = "https://www.saucedemo.com/inventory.html"
-
     PAGE_TITLE = (By.CLASS_NAME, "title")
     SORT_DROPDOWN = (By.CLASS_NAME, "product_sort_container")
     INVENTORY_ITEMS = (By.CLASS_NAME, "inventory_item")

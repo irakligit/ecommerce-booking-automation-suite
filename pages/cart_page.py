@@ -4,8 +4,6 @@ from pages.base_page import BasePage
 
 
 class CartPage(BasePage):
-    URL = "https://www.saucedemo.com/cart.html"
-
     CART_ITEMS = (By.CLASS_NAME, "cart_item")
     CART_ITEM_NAME = (By.CLASS_NAME, "inventory_item_name")
     CHECKOUT_BUTTON = (By.ID, "checkout")

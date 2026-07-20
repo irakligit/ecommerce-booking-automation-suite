@@ -31,19 +31,23 @@ def authenticated(auth_token):
 
 
 @given("I have created a booking", target_fixture="created_booking")
-def have_created_booking(booking_client):
+def have_created_booking(booking_client, auth_token):
     response = booking_client.create_booking(BOOKING_PAYLOAD)
     assert response.status_code == 200
     body = response.json()
-    return body["bookingid"], body["booking"]
+    booking_id = body["bookingid"]
+    yield booking_id, body["booking"]
+    booking_client.delete_booking(booking_id, auth_token)
 
 
 @when("I create a booking", target_fixture="created_booking")
-def create_booking(booking_client):
+def create_booking(booking_client, auth_token):
     response = booking_client.create_booking(BOOKING_PAYLOAD)
     assert response.status_code == 200
     body = response.json()
-    return body["bookingid"], body["booking"]
+    booking_id = body["bookingid"]
+    yield booking_id, body["booking"]
+    booking_client.delete_booking(booking_id, auth_token)
 
 
 @then("the booking response should match a valid schema")
