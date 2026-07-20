@@ -13,7 +13,7 @@ API_PASSWORD = "password123"
 
 
 @pytest.fixture
-def driver():
+def driver(request):
     options = Options()
     options.add_argument("--window-size=1400,1000")
     if os.getenv("HEADLESS"):
@@ -24,6 +24,9 @@ def driver():
     service = Service(ChromeDriverManager().install())
     chrome_driver = webdriver.Chrome(service=service, options=options)
     yield chrome_driver
+    if request.node.rep_call.failed:
+        os.makedirs("screenshots", exist_ok=True)
+        chrome_driver.save_screenshot(f"screenshots/{request.node.name}.png")
     chrome_driver.quit()
 
 
@@ -31,11 +34,7 @@ def driver():
 def pytest_runtest_makereport(item, call):
     outcome = yield
     report = outcome.get_result()
-    if report.when == "call" and report.failed:
-        driver = item.funcargs.get("driver")
-        if driver:
-            os.makedirs("screenshots", exist_ok=True)
-            driver.save_screenshot(f"screenshots/{item.name}.png")
+    setattr(item, f"rep_{report.when}", report)
 
 
 @pytest.fixture(scope="session")
