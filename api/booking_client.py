@@ -23,13 +23,6 @@ class BookingClient:
             headers={"Cookie": f"token={token}"},
         )
 
-    def partial_update_booking(self, booking_id, payload, token):
-        return requests.patch(
-            f"{self.BASE_URL}/booking/{booking_id}",
-            json=payload,
-            headers={"Cookie": f"token={token}"},
-        )
-
     def delete_booking(self, booking_id, token):
         return requests.delete(
             f"{self.BASE_URL}/booking/{booking_id}",
