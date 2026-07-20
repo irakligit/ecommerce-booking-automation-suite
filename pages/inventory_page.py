@@ -27,7 +27,8 @@ class InventoryPage(BasePage):
 
     def add_cheapest_item_to_cart(self):
         first_item = self.find_all(self.INVENTORY_ITEMS)[0]
-        first_item.find_element(*self.ITEM_ADD_TO_CART_BUTTON).click()
+        button = first_item.find_element(*self.ITEM_ADD_TO_CART_BUTTON)
+        self.click_element(button)
         return self
 
     def go_to_cart(self):

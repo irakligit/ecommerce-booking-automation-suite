@@ -17,7 +17,11 @@ class BasePage:
         return self.wait.until(EC.presence_of_all_elements_located(locator))
 
     def click(self, locator):
-        self.wait.until(EC.element_to_be_clickable(locator)).click()
+        element = self.wait.until(EC.element_to_be_clickable(locator))
+        self.click_element(element)
+
+    def click_element(self, element):
+        self.driver.execute_script("arguments[0].click();", element)
 
     def type_text(self, locator, text):
         field = self.find(locator)
