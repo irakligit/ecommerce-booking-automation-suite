@@ -14,6 +14,11 @@ jobs:
           python-version: "3.9"
       - run: pip install -r requirements.txt
       - run: HEADLESS=1 pytest step_defs -v
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: failure-screenshots
+          path: screenshots/
 
   api:
     runs-on: ubuntu-latest
